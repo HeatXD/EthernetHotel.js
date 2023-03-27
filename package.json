@@ -1,0 +1,24 @@
+{
+  "name": "ethernethotel",
+  "version": "1.0.0",
+  "description": "Simple UDP holepunching server which allows multiple users within a room to exchange their details.",
+  "main": "src/main.js",
+  "scripts": {
+    "app": "node src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeatXD/EthernetHotel.js.git"
+  },
+  "author": "HeatXD (Jamie Meyer)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HeatXD/EthernetHotel.js/issues"
+  },
+  "homepage": "https://github.com/HeatXD/EthernetHotel.js#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "nanoid": "^3.3.6",
+    "ttl": "^1.3.1"
+  }
+}
