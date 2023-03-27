@@ -1,5 +1,5 @@
 # EthernetHotel.js
-## Simple UDP holepunching server which allows multiple users within a room to exchange their details.
+Simple UDP holepunching server which allows multiple users within a room to exchange their details.
 ### Commands
 ```
 &! -> Command starter
