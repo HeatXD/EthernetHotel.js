@@ -1,6 +1,6 @@
 # EthernetHotel.js
 Simple UDP holepunching server which allows multiple users within a room to exchange their details.
-
+```
 &! -> Command starter
 &# -> Seperator
 {} -> Placeholder
@@ -18,3 +18,4 @@ Room Closed: &!RC
 Room Code Response: &!RCR&#{room_code} -> e.g. &!RCR&#AAAABBBBCCCCDDDD
 Room Info Exchange: &!RIE&#{full_address}&#{external_data} -> e.g. &!RIE&#127.0.0.1&#4444&#HEATXD
 ----------------------------------
+```
