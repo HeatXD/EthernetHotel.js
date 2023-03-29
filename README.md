@@ -13,6 +13,7 @@ Join Room: &!JR&#{room_code}&#{external_data} -> e.g. &!JR&#2&#HEATXD
 ----------------------------------
 Server Responses
 ----------------------------------
+Room Joined: &!RJ&#{room_size} -> e.g. &!RJ&#4
 Room Full: &!RF
 No Room Found: &!NRF
 Room Closed: &!RC

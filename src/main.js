@@ -10,6 +10,7 @@ Join Room: &!JR&#{room_code}&#{external_data} -> e.g. &!JR&#2&#HEATXD
 ----------------------------------
 Server Responses
 ----------------------------------
+Room Joined: &!RJ&#{room_size}
 Room Full: &!RF
 No Room Found: &!NRF
 Room Closed: &!RC
@@ -44,32 +45,37 @@ socket.on('message', (msg, remote) => {
     const cmd = msg.toString().trim();
     if (!cmd.startsWith("&!") || cmd.endsWith("&#") || cmd.endsWith("&!")) return;
     const args = cmd.split("&#");
-    // console.log(args);
+    console.log(args);
     if (args.length < 2) return;
     if (args[0] === "&!CR") { 
         const num = Number(args[1]);
         if (num == NaN) return;
-        //console.log(args[2] + " wants to create room for " + num + " players");
-        // create the room.
-        const roomId = nanoid(ROOM_CODE_LEN);
+        // console.log(args[2] + " wants to create room for " + num + " players");
+        // get an available id
+        var roomId = nanoid(ROOM_CODE_LEN);
+        while (hotel.get(roomId) != undefined) {
+            roomId = nanoid(ROOM_CODE_LEN);
+        }
+        // create the room
         const room = {};
         room.size = num;
         room.users = new Map();
         // add host to the room
         const fullAddr = remote.address + ":" + remote.port;
-        const value = args[3] | 0;
+        const value = args[2] == undefined ? 0 : args[2];
         room.users.set(fullAddr, value);
         // add room to the hotel
         hotel.put(roomId, room);
         // return room code as respone
         sendMessage("&!RCR&#" + roomId, fullAddr);
+        sendMessage("&!RJ&#" + room.size, fullAddr);
         // console.table(hotel.size());
     }
     else if (args[0] === "&!JR") { 
         if (args[1].length != ROOM_CODE_LEN) return;
         //console.log("Join Room! : " + args[1]);
         const fullAddr = remote.address + ":" + remote.port;
-        const info = args[2] | 0;
+        const info = args[2] == undefined ? 0 : args[2];
         const room = hotel.get(args[1]);
         if (room === undefined) {
             sendMessage("&!NRF", fullAddr);
@@ -97,6 +103,7 @@ function roomAddUser(fullAddr, info, roomId, room) {
     if (room.users.size < room.size) {
         // add user to the room
         room.users.set(fullAddr, info);
+        sendMessage("&!RJ&#" + room.size, fullAddr);
         if (room.users.size === room.size) {
             // start exchanging information
             room.users.forEach((info, address) => {
